@@ -141,6 +141,7 @@ const AppContent = () => {
   const handleSignOut = async () => {
     try {
       await logOut()
+      navigate("/")
     } catch (error) {
       console.log(error)
     }
@@ -149,13 +150,6 @@ const AppContent = () => {
   const [isTokenFound, setTokenFound] = useState(false)
   getToken(setTokenFound)
 
-  // inside the jsx being returned:
-  // {isTokenFound &&
-  //  Notification permission enabled 👍🏻
-  // }
-  // {!isTokenFound &&
-  //  Need notification permission ❗️
-  // }
       const [orders, setOrders] = useState(0);
       const [inventory, setInventory] = useState(0);
       const [customers, setCustomers] = useState(0);
@@ -197,11 +191,8 @@ const AppContent = () => {
         <Toast.Body>There are some new updates that you might love!</Toast.Body>
       </Toast>
 
-      <img src="" className="App-logo" alt="logo" />
-      <Button onClick={() => setShow(true)}>Show Toast</Button>
-
       <div>
-        <p>Welcome, {user?.displayName}</p>
+        <p>Welcome admin, {user?.displayName}</p>
       </div>
       <button onClick={handleSignOut} className="border py-2 px-5 mt-10">
         Logout
