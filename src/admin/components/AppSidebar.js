@@ -84,7 +84,7 @@ function AppSidebar () {
   return (
     <div className="sidebar">
       <div className="sidebar__logo">
-        <h1>Admin</h1>
+        <h1>Admin Build PC</h1>
       </div>
       <div className="sidebar__menu">
         {/* <div

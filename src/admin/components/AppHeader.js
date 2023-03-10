@@ -108,11 +108,11 @@ const [form, setForm] = useState({
     >
       <div style={{ display: "flex" }}>
         <Image
-          width={40}
-          src="https://yt3.ggpht.com/ytc/AMLnZu83ghQ28n1SqADR-RbI2BGYTrqqThAtJbfv9jcq=s176-c-k-c0x00ffffff-no-rj"
+          width={50}
+          src="https://th.bing.com/th/id/R.5879575d0a2103dae427c1d976bbeaf5?rik=m30lslRGy8DalQ&pid=ImgRaw&r=0"
         ></Image>
-        <Typography.Title style={{ marginLeft: "10px" }}>
-          Aamir's Dashboard
+        <Typography.Title style={{ marginLeft: "10px" ,color:"#322275"}}>
+         Admin
         </Typography.Title>
       </div>
       <Space style={{ alignItems: "baseline" }}>
