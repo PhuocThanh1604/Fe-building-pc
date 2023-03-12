@@ -14,6 +14,7 @@ import Account from './admin/pages/Account'
 import Home from './admin/components/Home'
 import DefaultLayout from "./admin/pages/DefaultLayout";
 import Orders from "./admin/pages/Orders";
+import Orderdetail from "./admin/pages/Orderdetail";
 import Login from "./admin/pages/Login";
 import Register from "./admin/pages/Register";
 import Page404 from "./admin/pages/Page404";
@@ -90,6 +91,7 @@ function App() {
           <Route path="/categories" element={<Protected><Category /></Protected>} />
           <Route path="/component/add" element={<Protected><AppComponent /></Protected>} />
           <Route path="/order" element={<Protected><Orders /></Protected>} />
+          <Route path="/orderdetail" element={<Protected><Orderdetail /></Protected>} />
           <Route path="/customer" element={<Protected><Customers /></Protected>} />
           <Route path="/upload" element={<Protected><ImageUpload /></Protected>} />
            <Route path="/register" name="Register Page" element={<Protected><Register /></Protected>} />
