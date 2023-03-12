@@ -42,6 +42,11 @@ function AppSidebar () {
       icon: <FaShoppingBag />,
       to: "/order",
       section: "order",
+    },{
+      display: "OrderDetail",
+      icon: <FaShoppingBag />,
+      to: "/orderdetail",
+      section: "orderdetail",
     },
     {
       display: "ImageUpload",
