@@ -53,7 +53,7 @@ const [form, setForm] = useState({
   image:"",
   status: "save",
 });
-const [selectedOption, setSelectedOption] = useState(null);
+
 
 // const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm({
 //     defaultValues: {
