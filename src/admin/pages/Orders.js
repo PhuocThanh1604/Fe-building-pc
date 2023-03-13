@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 function Orders() {
   const getOrders = () => {
-    return fetch("https://server-buildingpc.herokuapp.com/cart/getcart?userID=PhuongThai").then((res) => res.json());
+    return fetch("https://server-buildingpc.herokuapp.com/bill/getBill?userID=PhuongThai").then((res) => res.json());
   };
 
   var x = 1000;
@@ -14,7 +14,7 @@ console.log(x);
     useEffect(()=>{
         setLoading(true)
         getOrders().then(res=>{
-            setDataSource(res.Product)
+            setDataSource(res.billDetail)
             setLoading(false)
         })
     },[])
@@ -24,15 +24,14 @@ console.log(x);
             <Table
             loading={loading}
              columns={[
-           
                 {
-                title:"Name",
-                dataIndex:"name",
+                title:"BillID",
+                dataIndex:"billID",
+                render:(value)=><span>{value}</span>
             },
             {
-
-                title:"Price",
-                dataIndex:"price",
+                title:"Total",
+                dataIndex:"total",
                 render:(value)=><span>{value}đ</span>
             },
       
@@ -41,14 +40,14 @@ console.log(x);
               dataIndex: "amount",
             },
             {
-              title: "Total",
-              dataIndex: "totally",
+              title: "Status",
+              dataIndex: "status",
             },
             {
-              title:"Photo",
-              dataIndex:"image",
-              render:(link) =>{
-                  return <Avatar src={link}/>
+              title:"Date",
+              dataIndex:"payDate",
+              render:(date) =>{
+                  return <Date src={date}/>
               }
           },
 
