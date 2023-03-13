@@ -3,17 +3,22 @@ import { useEffect, useState } from "react"
 
 function Orders() {
   const getOrders = () => {
-    return fetch("https://server-buildingpc.herokuapp.com/cart/getcart?userID=PhuongThai").then((res) => res.json());
+    return fetch("https://server-buildingpc.herokuapp.com/bill/getBill?userID=PhuongThai").then((res) => res.json());
   };
     const[loading,setLoading] = useState(false);
     const[dataSource,setDataSource] = useState([])
+    const[dataSourceComponentDetail,setDataSourceComponentDetail] = useState([])
     useEffect(()=>{
         setLoading(true)
         getOrders().then(res=>{
-            setDataSource(res.ProductDetail)
+          // console.log(res.billDetail.componentDetail)
+            setDataSource(res.componentDetail)
+            // setDataSourceComponentDetail(res.componentDetail)
+            // console.log(res.componentDetail)
             setLoading(false)
         })
     },[])
+    // console.log(dataSource)
     return (
         <Space size={20} direction="vertical" style={{width: "100%"}}>
             <Typography.Title level={4}> OrdersDetail</Typography.Title>
@@ -43,12 +48,12 @@ function Orders() {
               dataIndex: "amount",
             },
             {
-              title: "Brand",
-              dataIndex: "brand",
+              title: "PaymentMethod",
+              dataIndex: "paymentMethod",
             },
             {
-                title: "Category",
-                dataIndex: "category",
+                title: "total",
+                dataIndex: "total",
               },
               {
                 title:"Photo",
