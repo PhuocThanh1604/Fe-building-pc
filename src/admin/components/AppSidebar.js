@@ -45,14 +45,14 @@ function AppSidebar() {
     {
       display: "Orders",
       icon: <FaShoppingBag />,
-      to: "/order",
+      to: "#",
       section: "order",
       subNav: [
         {
           display: "OrderDetail",
           icon: <FaShoppingBag />,
-          to: "/orderdetail",
-          section: "orderdetail",
+          to: "/order",
+          section: "orderdorderetail",
         },
       ],
     },

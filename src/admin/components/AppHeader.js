@@ -76,14 +76,14 @@ const [form, setForm] = useState({
       }
     const sendNotification = (e) => {
       e.preventDefault();
-      const token = JSON.parse(localStorage.getItem("access_token"));
+      const token = "eesG9_KMS5yI5fu7xhQ7Li:APA91bGDWfeGaNENlqjDIAB3a8Zf_4svwlhCbbuy8Okn4Z_G9Eig-Tq9xE90PVMcYaxTODZRAZb4D7JEQ84ta_v-UjVnxpSawwJGDkbUhaUnDrRTAjTNN1JxrpkgX9dtG77l3Lr3UC1-";
       return axios
         .post(
           "https://server-buildingpc.herokuapp.com/notification/token",
           {
             message: form.message,
             title: form.title,
-            token: token.accessToken,
+            token: token,
             topic: form.topic,
           }
         )
