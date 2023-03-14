@@ -1,17 +1,22 @@
-import React from 'react'
+import React from "react";
 
-import 'simplebar/dist/simplebar.min.css'
-import './_navsidebar.scss'
+import "simplebar/dist/simplebar.min.css";
+import "./_navsidebar.scss";
 // sidebar nav config
-import { FaBars, FaShoppingBag, FaUser, FaCarBattery, FaUpload } from 'react-icons/fa'
-import { Link, NavLink, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
-import { useRef } from 'react'
-import { useState } from 'react'
+import {
+  FaBars,
+  FaShoppingBag,
+  FaUser,
+  FaCarBattery,
+  FaUpload,
+} from "react-icons/fa";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useRef } from "react";
+import { useState } from "react";
+import SubMenu from "./SubMenu";
 
-
-
-function AppSidebar () {
+function AppSidebar() {
   const sidebarNavItems = [
     {
       display: "Dashboard",
@@ -42,12 +47,21 @@ function AppSidebar () {
       icon: <FaShoppingBag />,
       to: "/order",
       section: "order",
-    },{
-      display: "OrderDetail",
-      icon: <FaShoppingBag />,
-      to: "/orderdetail",
-      section: "orderdetail",
+      subNav: [
+        {
+          display: "OrderDetail",
+          icon: <FaShoppingBag />,
+          to: "/orderdetail",
+          section: "orderdetail",
+        },
+      ],
     },
+    // {
+    //   display: "OrderDetail",
+    //   icon: <FaShoppingBag />,
+    //   to: "/orderdetail",
+    //   section: "orderdetail",
+    // },
     {
       display: "ImageUpload",
       icon: <FaUpload />,
@@ -63,9 +77,9 @@ function AppSidebar () {
   ];
   // const [activeIndex, setActiveIndex] = useState(0)
   // const [stepHeight, setStepHeight] = useState(0)
-  const sidebarRef = useRef()
-  const indicatorRef = useRef()
-  const location = useLocation()
+  const sidebarRef = useRef();
+  const indicatorRef = useRef();
+  const location = useLocation();
   const isActive = (path) => {
     if (window.location.pathname === path) return "active";
     else return "";
@@ -86,6 +100,9 @@ function AppSidebar () {
   //   })
   //   setActiveIndex(curPath.length === 0 ? 0 : activeItem)
   // }, [location])
+  const [subnav, setSubnav] = useState(false);
+  const showSubnav = () => setSubnav(!subnav);
+
   return (
     <div className="sidebar">
       <div className="sidebar__logo">
@@ -102,16 +119,11 @@ function AppSidebar () {
           }}
         ></div> */}
         {sidebarNavItems.map((item, index) => (
-          <Link to={item.to} key={index}>
-            <div className={`sidebar__menu__item ${isActive(item.to)}`}>
-              <div className="sidebar__menu__item__icon">{item.icon}</div>
-              <div className="sidebar__menu__item__text">{item.display}</div>
-            </div>
-          </Link>
+          <SubMenu item={item} isActive={isActive} key={index} />
         ))}
       </div>
     </div>
   );
 }
 
-export default React.memo(AppSidebar)
+export default React.memo(AppSidebar);

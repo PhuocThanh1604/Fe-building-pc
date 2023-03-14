@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useForm } from "react-hook-form";
 import Select from 'react-select';
-import { Avatar, Rate, Space, Table, Typography } from "antd";
+import { Avatar, Rate, Space, Table, Typography, Button, Modal } from "antd";
 import { storeImageToFireBase } from 'src/utilities/storeImageToFirebase.';
 
 const AddComponent = () => {
@@ -54,7 +54,14 @@ const [form, setForm] = useState({
   status: "save",
 });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 // const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm({
 //     defaultValues: {
 //         amount: 0,
@@ -114,6 +121,7 @@ const [form, setForm] = useState({
           });
           setImage(null);
           setComponents([...[res.data], ...componentNew]);
+          handleCancel();
           setLoading(false);
         } else {
           const res = await axios.post(
@@ -140,6 +148,7 @@ const [form, setForm] = useState({
             status: "save",
           });
           setImages(null);
+          handleCancel();
         setLoading(false);
         }
     } catch (error) {
@@ -238,91 +247,95 @@ useEffect(()=>{
 
     return (
       <>
-        <form className="form" onSubmit={onSubmit}>
-          <p className="form-title">add component</p>
-          <div className="input-container">
-            <label onClick={getUsers}> Amount</label>
-            <input
-              type="number"
-              value={form.amount}
-              onChange={handleChange("amount")}
+        <Button type="primary" onClick={showModal}>
+          Add component
+        </Button>
+        <Modal open={isModalOpen} footer={null} onCancel={handleCancel}>
+          <form className="form" onSubmit={onSubmit}>
+            <p className="form-title">add component</p>
+            <div className="input-container">
+              <label onClick={getUsers}> Amount</label>
+              <input
+                type="number"
+                value={form.amount}
+                onChange={handleChange("amount")}
+              />
+            </div>
+            <label>BrandID</label>
+            <br />
+            <Select
+              defaultValue={form.brandID}
+              onChange={handleChange("brandID")}
+              options={brand}
             />
-          </div>
-          <label>BrandID</label>
-          <br />
-          <Select
-            defaultValue={form.brandID}
-            onChange={handleChange("brandID")}
-            options={brand}
-          />
-        
-          <label>categoryID</label>
-          <br />
-          <Select
-          defaultValue={form.categoryID}
-            onChange={handleChange("categoryID")}
-            options={categories}
-          />
-          <div className="input-container">
-            <label>compoenentName</label>
-            <input
-              value={form.componentName}
-              onChange={handleChange("componentName")}
-            />
-          </div>
-          <div className="input-container">
-            <label>Desc</label>
-            <input
-              value={form.description}
-              onChange={handleChange("description")}
-            />
-          </div>
-          <img
-            src={
-              form.image !== ""
-                ? form.image
-                : "https://pkmdepokutara.depok.go.id/assets/images/default.jpg"
-            }
-            alt=""
-            style={{ width: "150px", marginBottom: "10px" }}
-          />
-          {form.status !== "save" ? (
-            <input
-              class="form-control"
-              type="file"
-              id="formFile"
-              name="file"
-              accept="image/*"
-              onChange={onSelectFile}
-            />
-          ) : (
-            <input
-              class="form-control"
-              type="file"
-              id="formFile"
-              name="file"
-              accept="image/*"
-              onChange={handleImage}
-            />
-          )}
-          <div className="input-container">
-            <label>Price</label>
-            <input
-              type="number"
-              value={form.price}
-              onChange={handleChange("price")}
-            />
-          </div>
-          <button
-            className="submit"
-            type="submit"
-            disabled={loading}
-            style={{ opacity: loading ? "0.5" : "1" }}
-          >
-            {loading ? "...load" : "Submit"}
-          </button>
-        </form>
 
+            <label>categoryID</label>
+            <br />
+            <Select
+              defaultValue={form.categoryID}
+              onChange={handleChange("categoryID")}
+              options={categories}
+            />
+            <div className="input-container">
+              <label>compoenentName</label>
+              <input
+                value={form.componentName}
+                onChange={handleChange("componentName")}
+              />
+            </div>
+            <div className="input-container">
+              <label>Desc</label>
+              <input
+                value={form.description}
+                onChange={handleChange("description")}
+              />
+            </div>
+            <img
+              src={
+                form.image !== ""
+                  ? form.image
+                  : "https://pkmdepokutara.depok.go.id/assets/images/default.jpg"
+              }
+              alt=""
+              style={{ width: "150px", marginBottom: "10px" }}
+            />
+            {form.status !== "save" ? (
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                name="file"
+                accept="image/*"
+                onChange={onSelectFile}
+              />
+            ) : (
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                name="file"
+                accept="image/*"
+                onChange={handleImage}
+              />
+            )}
+            <div className="input-container">
+              <label>Price</label>
+              <input
+                type="number"
+                value={form.price}
+                onChange={handleChange("price")}
+              />
+            </div>
+            <button
+              className="submit"
+              type="submit"
+              disabled={loading}
+              style={{ opacity: loading ? "0.5" : "1" }}
+            >
+              {loading ? "...load" : "Submit"}
+            </button>
+          </form>
+        </Modal>
         <Space size={20} direction="vertical" style={{ width: "100%" }}>
           <Table
             columns={[
@@ -348,6 +361,16 @@ useEffect(()=>{
               {
                 title: "Price",
                 dataIndex: "price",
+                render: (record) => {
+                  return (
+                    <span>
+                      {record.toLocaleString("it-IT", {
+                        style: "currency",
+                        currency: "VND",
+                      })}
+                    </span>
+                  );
+                },
               },
               {
                 title: "Status",
@@ -361,7 +384,7 @@ useEffect(()=>{
                   <div style={{ display: "flex" }}>
                     <button
                       className="confirmButton"
-                      onClick={() => updateInfo(record)}
+                      onClick={() => (updateInfo(record),showModal())}
                     >
                       Edit
                     </button>
