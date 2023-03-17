@@ -25,17 +25,31 @@ function AppSidebar() {
       section: "/dashbroad",
     },
     {
-      display: "Category",
-      icon: <FaCarBattery />,
-      to: "/categories",
-      section: "/categories",
+      display: "Component",
+      icon: <FaUpload />,
+      to: "/component/add",
+      section: "component",
     },
-    {
-      display: "Product",
-      icon: <FaShoppingBag />,
-      to: "/product",
-      section: "product",
-    },
+    // {
+    //   display: "Category",
+    //   icon: <FaCarBattery />,
+    //   to: "/categories",
+    //   section: "/categories",
+    // },
+    // {
+    //   display: "Product",
+    //   icon: <FaShoppingBag />,
+    //   to: "#",
+    //   section: "product",
+    //   subNav: [
+    //     {
+    //       display: "OrderDetail",
+    //       icon: <FaShoppingBag />,
+    //       to: "/order",
+    //       section: "orderdorderetail",
+    //     },
+    //   ],
+    // },
     {
       display: "User",
       icon: <FaUser />,
@@ -62,21 +76,15 @@ function AppSidebar() {
     //   to: "/orderdetail",
     //   section: "orderdetail",
     // },
-    {
-      display: "ImageUpload",
-      icon: <FaUpload />,
-      to: "/upload",
-      section: "upload",
-    },
-    {
-      display: "Component",
-      icon: <FaUpload />,
-      to: "/component/add",
-      section: "component",
-    },
+    // {
+    //   display: "ImageUpload",
+    //   icon: <FaUpload />,
+    //   to: "/upload",
+    //   section: "upload",
+    // },
+   
   ];
-  // const [activeIndex, setActiveIndex] = useState(0)
-  // const [stepHeight, setStepHeight] = useState(0)
+ 
   const sidebarRef = useRef();
   const indicatorRef = useRef();
   const location = useLocation();
