@@ -13,7 +13,7 @@ import { UserAuth } from "src/api/AuthContext";
 import AddComponent from './AddComponent';
 
 function Orders() {
-    // const { user } = UserAuth();
+  const { Title, Paragraph, Text, Link } = Typography;
   const getOrders = () => {
     return fetch("https://server-buildingpc.herokuapp.com/bill/getBill?userID=PhuongThai").then((res) => res.json());
   };
@@ -43,16 +43,18 @@ console.log(x);
     return (
       <Space size={20} direction="vertical" style={{ width: "100%" }}>
         <Typography.Title level={4}> Orders</Typography.Title>
-        <Button type="primary" onClick={showModal}>
+        {/* <Button type="primary" onClick={showModal}>
           Add component
-        </Button>
+        </Button> */}
         <Modal
           open={isModalOpen}
           footer={null}
           onCancel={handleCancel}
           width={1000}
         >
+        <Typography> <Title>Orders Detail</Title></Typography>
           <Table
+          
             loading={loading}
             columns={[
               {
@@ -68,7 +70,7 @@ console.log(x);
               },
               {
                 title: "Category",
-                dataIndex: "categoryID",
+                dataIndex: "category",
               },
               {
                 title: "Amount",
@@ -91,6 +93,13 @@ console.log(x);
               {
                 title: "Status",
                 dataIndex: "status",
+                render:(status) =>{
+                  if(status=='1'){
+                    return 'active'
+                  }else{
+                    return 'unactive'
+                  }
+                }
               },
             ]}
             dataSource={componentDetail}
@@ -129,6 +138,13 @@ console.log(x);
             {
               title: "Status",
               dataIndex: "status",
+              render:(status) =>{
+                if(status=='1'){
+                  return 'active'
+                }else{
+                  return 'unactive'
+                }
+              }
             },
             {
               title: "Date",

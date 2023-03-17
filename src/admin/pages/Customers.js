@@ -3,14 +3,15 @@ import { useEffect, useState } from "react";
 
 function Customers() {
    const getCustomers = () => {
-    return fetch("https://dummyjson.com/users").then((res) => res.json());
+    return fetch("https://server-buildingpc.herokuapp.com/user/getListUserWithRoleUser").then((res) => res.json());
   };
     const [loading, setLoading] = useState(false);
     const [dataSource, setDataSource] = useState([]);
     useEffect(() => {
         setLoading(true);
         getCustomers().then(res=>{
-            setDataSource(res.users)
+            setDataSource(res.profiles)
+        
             setLoading(false)
         })
     },[])
@@ -29,13 +30,17 @@ function Customers() {
                 }
             },
             {
-                title: "First Name",
-                dataIndex: "firstName",
-              },
-              {
-                title: "LastName",
-                dataIndex: "lastName",
-              },
+              title: "UserName",
+              dataIndex: "userName",
+            },
+            // {
+            //     title: "First Name",
+            //     dataIndex: "firstName",
+            //   },
+            //   {
+            //     title: "LastName",
+            //     dataIndex: "lastName",
+            //   },
             {
                 title: "Email",
                 dataIndex: "email",
@@ -45,17 +50,17 @@ function Customers() {
                 dataIndex: "phone",
               },
 
-              {
-                title: "address",
-                dataIndex: "address",
-                render: (address) => {
-                  return (
-                    <span>
-                      {address.address}, {address.city}
-                    </span>
-                  );
-                },
-              },
+              // {
+              //   title: "address",
+              //   dataIndex: "address",
+              //   render: (address) => {
+              //     return (
+              //       <span>
+              //         {address.address}, {address.city}
+              //       </span>
+              //     );
+              //   },
+              // },
 
             ]}
             dataSource={dataSource}

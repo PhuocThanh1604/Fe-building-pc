@@ -87,7 +87,7 @@ function App() {
           />
                     <Route path="/dashbroad" name="Dashbroad"  element={<Protected><DefaultLayout /></Protected>} />
 
-           <Route path="/product" element={<Protected><Product /></Protected>} />
+           {/* <Route path="/product" element={<Protected><Product /></Protected>} /> */}
           <Route path="/categories" element={<Protected><Category /></Protected>} />
           <Route path="/component/add" element={<Protected><AppComponent /></Protected>} />
           <Route path="/order" element={<Protected><Orders /></Protected>} />

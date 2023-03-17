@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Select from 'react-select';
 import { Avatar, Rate, Space, Table, Typography, Button, Modal } from "antd";
 import { storeImageToFireBase } from 'src/utilities/storeImageToFirebase.';
-
+import { Switch } from 'antd';
 const AddComponent = () => {
 //   const[data,setData] = useState([])
 //   useEffect(()=>{
@@ -13,6 +13,9 @@ const AddComponent = () => {
 //   },[])
 //   console.log(data)
 
+const onChange = (checked) => {
+  console.log(`switch to ${checked}`);
+};
 
 const getUsers =()=> {
   const token = JSON.parse(localStorage.getItem("access_token"));
@@ -375,6 +378,14 @@ useEffect(()=>{
               {
                 title: "Status",
                 dataIndex: "status",
+                render:(status) =>{
+                  if(status=='1'){
+                    return 'active'
+                  }else{
+                    return 'unactive'
+                  }
+                }
+              
               },
               {
                 title: "Action",
