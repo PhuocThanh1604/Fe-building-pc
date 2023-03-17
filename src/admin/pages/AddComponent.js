@@ -13,8 +13,12 @@ const AddComponent = () => {
 //   },[])
 //   console.log(data)
 
-const onChange = (checked) => {
-  console.log(`switch to ${checked}`);
+const onChange = (status) => {
+  if(status=='1'){
+    console.log(`switch to ${status}`);
+  }else {
+    console.log(`switch to ${status}`);
+  }
 };
 
 const getUsers =()=> {
@@ -253,6 +257,7 @@ useEffect(()=>{
         <Button type="primary" onClick={showModal}>
           Add component
         </Button>
+      
         <Modal open={isModalOpen} footer={null} onCancel={handleCancel}>
           <form className="form" onSubmit={onSubmit}>
             <p className="form-title">add component</p>
@@ -380,9 +385,9 @@ useEffect(()=>{
                 dataIndex: "status",
                 render:(status) =>{
                   if(status=='1'){
-                    return 'active'
+                    return   <Switch defaultChecked onChange={onChange} />
                   }else{
-                    return 'unactive'
+                    return <Switch  CloseOutlined onChange={onChange} />
                   }
                 }
               

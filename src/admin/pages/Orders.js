@@ -11,8 +11,16 @@ import {
 import { useEffect, useState } from "react"
 import { UserAuth } from "src/api/AuthContext";
 import AddComponent from './AddComponent';
-
+import { Switch } from 'antd';
 function Orders() {
+  const onChange = (status) => {
+    if(status=='1'){
+      console.log(`switch to ${status}`);
+    }else {
+      console.log(`switch to ${status}`);
+    }
+  };
+  
   const { Title, Paragraph, Text, Link } = Typography;
   const getOrders = () => {
     return fetch("https://server-buildingpc.herokuapp.com/bill/getBill?userID=PhuongThai").then((res) => res.json());
@@ -95,11 +103,12 @@ console.log(x);
                 dataIndex: "status",
                 render:(status) =>{
                   if(status=='1'){
-                    return 'active'
+                    return   <Switch defaultChecked onChange={onChange} />
                   }else{
-                    return 'unactive'
+                    return <Switch  CloseOutlined onChange={onChange} />
                   }
                 }
+              
               },
             ]}
             dataSource={componentDetail}
@@ -140,9 +149,9 @@ console.log(x);
               dataIndex: "status",
               render:(status) =>{
                 if(status=='1'){
-                  return 'active'
+                  return   <Switch defaultChecked onChange={onChange} />
                 }else{
-                  return 'unactive'
+                  return <Switch  CloseOutlined onChange={onChange} />
                 }
               }
             },

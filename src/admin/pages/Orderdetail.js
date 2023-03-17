@@ -1,7 +1,9 @@
 import { Avatar, Image, Rate, Space, Table, Typography } from "antd"
 import { useEffect, useState } from "react"
 
+
 function Orders() {
+  
   const getOrders = () => {
     return fetch("https://server-buildingpc.herokuapp.com/bill/getBill?userID=PhuongThai").then((res) => res.json());
   };
@@ -18,6 +20,7 @@ function Orders() {
             setLoading(false)
         })
     },[])
+    
     // console.log(dataSource)
     return (
         <Space size={20} direction="vertical" style={{width: "100%"}}>
