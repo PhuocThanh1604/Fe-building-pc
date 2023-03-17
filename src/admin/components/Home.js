@@ -27,13 +27,6 @@ const Home = () => {
     }, []);
     console.log('1', products)
 
-  // const handleSignOut = async () => {
-  //   try {
-  //     await logOut()
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
 
   return (
     <div>
