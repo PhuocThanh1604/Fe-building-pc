@@ -27,9 +27,9 @@ import { Typography } from "antd"
 
 function AppFooter(){
 return <div className="AppFooter">
-    <Typography.Link href="tel:0933391614">+123456789</Typography.Link>
+    {/* <Typography.Link href="tel:0933391614">+123456789</Typography.Link>
     <Typography.Link href="https://www.google.com" target={"_bank"}>Google</Typography.Link>
-    <Typography.Link href="tel:0933391614">Tern use of</Typography.Link>
+    <Typography.Link href="tel:0933391614">Tern use of</Typography.Link> */}
     
 </div>;
 }
