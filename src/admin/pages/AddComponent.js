@@ -6,12 +6,6 @@ import { Avatar, Rate, Space, Table, Typography, Button, Modal } from "antd";
 import { storeImageToFireBase } from 'src/utilities/storeImageToFirebase.';
 import { Switch } from 'antd';
 const AddComponent = () => {
-//   const[data,setData] = useState([])
-//   useEffect(()=>{
-//     fetch('https://server-buildingpc.herokuapp.com/component/addComponent').
-//     then((response)=>response.json).then((data)=>setData(data));
-//   },[])
-//   console.log(data)
 
 const onChange = (status) => {
   if(status=='1'){
@@ -48,7 +42,7 @@ const [amount, setAmount] = useState(null);
 const [loading, setLoading] = useState(false);
 const [image, setImage] = useState('');
 const [images, setImages] = useState(null);
- const [selectedFile, setSelectedFile] = useState();
+const [selectedFile, setSelectedFile] = useState();
 const [form, setForm] = useState({
   componentID:0,
   amount: 0,
@@ -62,24 +56,21 @@ const [form, setForm] = useState({
 });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenEdit, setIsModalOpenEdit] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
+  
   };
+  const showModalEdit = () => {
+    setIsModalOpenEdit(true);
+  };
+
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setIsModalOpenEdit(false);
   };
-// const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm({
-//     defaultValues: {
-//         amount: 0,
-//         brandID: 0,
-//         categoryID: '',
-//         componentName: '',
-//         description: '',
-//         image: '',
-//         price: 0,
-//     }
-// });
+
   const updateInfo = (info) => {
     setForm({
       componentID: info.componentID,
@@ -90,7 +81,7 @@ const [form, setForm] = useState({
       description: info.description,
       price: info.price,
       image: info.image,
-      status: "update",
+      status: 'update',
     });
   };
   const onSubmit = async (e) => {
@@ -126,6 +117,7 @@ const [form, setForm] = useState({
             price: 0,
             status:"save"
           });
+          
           setImage(null);
           setComponents([...[res.data], ...componentNew]);
           handleCancel();
@@ -214,7 +206,7 @@ useEffect(()=>{
         }
         const { isSuccess, imageUrl, message } = await storeImageToFireBase(
           selectedFile
-        );
+        )
         if (isSuccess) {
           setImages(imageUrl);
           return imageUrl;
@@ -224,7 +216,6 @@ useEffect(()=>{
       };
       uploadImage();
     },
-    // eslint-disable-next-line
     [selectedFile]
   );
   const onSelectFile = (e) => {
@@ -254,13 +245,28 @@ useEffect(()=>{
 
     return (
       <>
+         <Typography.Title level={4}> Page Component</Typography.Title>
         <Button type="primary" onClick={showModal}>
           Add component
         </Button>
       
         <Modal open={isModalOpen} footer={null} onCancel={handleCancel}>
           <form className="form" onSubmit={onSubmit}>
-            <p className="form-title">add component</p>
+            <p className="form-title">Add Component</p>
+            <div className="input-container">
+              <label>Name </label>
+              <input
+                value={form.componentName}
+                onChange={handleChange("componentName")}
+              />
+            </div>
+            <div className="input-container">
+              <label>Description</label>
+              <input
+                value={form.description}
+                onChange={handleChange("description")}
+              />
+            </div>
             <div className="input-container">
               <label onClick={getUsers}> Amount</label>
               <input
@@ -269,35 +275,113 @@ useEffect(()=>{
                 onChange={handleChange("amount")}
               />
             </div>
-            <label>BrandID</label>
+            <label>Brand</label>
             <br />
             <Select
               defaultValue={form.brandID}
               onChange={handleChange("brandID")}
               options={brand}
+             
             />
 
-            <label>categoryID</label>
-            <br />
+            <label>Category</label>
+            <br   style={{ width: "150px", marginBottom: "10px" }}/>
             <Select
               defaultValue={form.categoryID}
               onChange={handleChange("categoryID")}
               options={categories}
+              style={{ width: "150px", marginBottom: "10px" }}s
             />
+           
+            <img
+              src={
+                form.image !== ""
+                  ? form.image
+                  : "https://pkmdepokutara.depok.go.id/assets/images/default.jpg"
+              }
+              alt=""
+              style={{ width: "150px", marginBottom: "10px" }}
+            />
+            {form.status !== "save" ? (
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                name="file"
+                accept="image/*"
+                onChange={onSelectFile}
+              />
+            ) : (
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                name="file"
+                accept="image/*"
+                onChange={handleImage}
+              />
+            )}
             <div className="input-container">
-              <label>compoenentName</label>
+              <label>Price</label>
+              <input
+                type="number"
+                value={form.price}
+                onChange={handleChange("price")}
+              />
+            </div>
+            <button
+              className="submit"
+              type="submit"
+              disabled={loading}
+              style={{ opacity: loading ? "0.5" : "1" }}
+            >
+              {loading ? "...load" : "Submit"}
+            </button>
+          </form>
+        </Modal>
+        <Modal open={isModalOpenEdit} footer={null} onCancel={handleCancel}>
+          <form className="form" onSubmit={onSubmit}>
+            <p className="form-title">Edit Component</p>
+            <div className="input-container">
+              <label>Name </label>
               <input
                 value={form.componentName}
                 onChange={handleChange("componentName")}
               />
             </div>
             <div className="input-container">
-              <label>Desc</label>
+              <label>Description</label>
               <input
                 value={form.description}
                 onChange={handleChange("description")}
               />
             </div>
+            <div className="input-container">
+              <label onClick={getUsers}> Amount</label>
+              <input
+                type="number"
+                value={form.amount}
+                onChange={handleChange("amount")}
+              />
+            </div>
+            <label>Brand</label>
+            <br />
+            <Select
+              defaultValue={form.brandID}
+              onChange={handleChange("brandID")}
+              options={brand}
+             
+            />
+
+            <label>Category</label>
+            <br   style={{ width: "150px", marginBottom: "10px" }}/>
+            <Select
+              defaultValue={form.categoryID}
+              onChange={handleChange("categoryID")}
+              options={categories}
+              style={{ width: "150px", marginBottom: "10px" }}s
+            />
+           
             <img
               src={
                 form.image !== ""
@@ -400,7 +484,7 @@ useEffect(()=>{
                   <div style={{ display: "flex" }}>
                     <button
                       className="confirmButton"
-                      onClick={() => (updateInfo(record),showModal())}
+                      onClick={() => (updateInfo(record),showModalEdit())}
                     >
                       Edit
                     </button>

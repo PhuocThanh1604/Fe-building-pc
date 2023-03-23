@@ -36,20 +36,21 @@ function AppSidebar() {
     //   to: "/categories",
     //   section: "/categories",
     // },
-    // {
-    //   display: "Product",
-    //   icon: <FaShoppingBag />,
-    //   to: "#",
-    //   section: "product",
-    //   subNav: [
-    //     {
-    //       display: "OrderDetail",
-    //       icon: <FaShoppingBag />,
-    //       to: "/order",
-    //       section: "orderdorderetail",
-    //     },
-    //   ],
-    // },
+    {
+      display: "Product",
+      icon: <FaShoppingBag />,
+      to: "/product",
+      section: "product",
+      subNav: [
+        {
+          display: "ProductDetail",
+          icon: <FaShoppingBag />,
+          to: "/productDetail",
+          section: "productDetail",
+        }
+      ]
+      
+    },
     {
       display: "User",
       icon: <FaUser />,
@@ -70,18 +71,7 @@ function AppSidebar() {
         },
       ],
     },
-    // {
-    //   display: "OrderDetail",
-    //   icon: <FaShoppingBag />,
-    //   to: "/orderdetail",
-    //   section: "orderdetail",
-    // },
-    // {
-    //   display: "ImageUpload",
-    //   icon: <FaUpload />,
-    //   to: "/upload",
-    //   section: "upload",
-    // },
+
    
   ];
  

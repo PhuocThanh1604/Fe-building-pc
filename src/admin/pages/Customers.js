@@ -17,7 +17,7 @@ function Customers() {
     },[])
     return (
         <Space size={20} direction="vertical" style={{width: "100%"}}>
-            <Typography.Title level={4}>User</Typography.Title>
+            <Typography.Title level={4}> Page User</Typography.Title>
             <Table
             loading={loading}
              columns={[

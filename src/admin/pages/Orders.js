@@ -14,7 +14,7 @@ import AddComponent from './AddComponent';
 import { Switch } from 'antd';
 function Orders() {
   const onChange = (status) => {
-    if(status=='1'){
+    if(status=='CompletedBill'){
       console.log(`switch to ${status}`);
     }else {
       console.log(`switch to ${status}`);
@@ -23,11 +23,12 @@ function Orders() {
   
   const { Title, Paragraph, Text, Link } = Typography;
   const getOrders = () => {
-    return fetch("https://server-buildingpc.herokuapp.com/bill/getBill?userID=PhuongThai").then((res) => res.json());
+    return fetch("https://server-buildingpc.herokuapp.com/bill/getBillByStatusCompleted").then((res) => res.json());
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [componentDetail, setComponentDetail] = useState([]);
+  const [component, setComponent] = useState([]);
+  const [status, setStatus] = useState('');
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -41,16 +42,19 @@ x = x.toLocaleString('en-US', {style : 'currency', currency : 'VND'});
 console.log(x);
     const[loading,setLoading] = useState(false);
     const[dataSource,setDataSource] = useState([])
+    const[dataSourceStatus,setDataSourceStatus] = useState('')
     useEffect(()=>{
         setLoading(true)
         getOrders().then(res=>{
             setDataSource(res.billDetail)
+            setStatus(res)
+            console.log(res.status)
             setLoading(false)
         })
     },[])
     return (
       <Space size={20} direction="vertical" style={{ width: "100%" }}>
-        <Typography.Title level={4}> Orders</Typography.Title>
+        <Typography.Title level={4}>Page Orders</Typography.Title>
         {/* <Button type="primary" onClick={showModal}>
           Add component
         </Button> */}
@@ -76,10 +80,10 @@ console.log(x);
                 title: "Component Name",
                 dataIndex: "componentName",
               },
-              {
-                title: "Category",
-                dataIndex: "category",
-              },
+              // {
+              //   title: "Category",
+              //   dataIndex: "category",
+              // },
               {
                 title: "Amount",
                 dataIndex: "amount",
@@ -98,20 +102,20 @@ console.log(x);
                   );
                 },
               },
-              {
-                title: "Status",
-                dataIndex: "status",
-                render:(status) =>{
-                  if(status=='1'){
-                    return   <Switch defaultChecked onChange={onChange} />
-                  }else{
-                    return <Switch  CloseOutlined onChange={onChange} />
-                  }
-                }
+              // {
+              //   title: "Status",
+              //   dataIndex: "status",
+              //   render:(status) =>{
+              //     if(status=='1'){
+              //       return   <Switch defaultChecked onChange={onChange} />
+              //     }else{
+              //       return <Switch  CloseOutlined onChange={onChange} />
+              //     }
+              //   }
               
-              },
+              // },
             ]}
-            dataSource={componentDetail}
+            dataSource={component}
             pagination={{
               pageSize: 6,
             }}
@@ -121,9 +125,14 @@ console.log(x);
           loading={loading}
           columns={[
             {
-              title: "BillID",
+              title: "Bill",
               dataIndex: "billID",
               render: (value) => <span>{value}</span>,
+            },
+            {
+              title: "User",
+              dataIndex: "userID",
+           
             },
             {
               title: "Total",
@@ -144,17 +153,19 @@ console.log(x);
               title: "Amount",
               dataIndex: "amount",
             },
-            {
-              title: "Status",
-              dataIndex: "status",
-              render:(status) =>{
-                if(status=='1'){
-                  return   <Switch defaultChecked onChange={onChange} />
-                }else{
-                  return <Switch  CloseOutlined onChange={onChange} />
-                }
-              }
-            },
+            // {
+            //   title: "Status",
+            //   dataIndex: "status",
+            //   render:(status) =>{
+            //     if(status=='CompletedBill'){
+            //       return   <Switch defaultChecked onChange={onChange} />
+            //     }else{
+            //       return <Switch  CloseOutlined onChange={onChange} />
+            //     }
+             
+            //   }
+              
+            // },
             {
               title: "Date",
               dataIndex: "payDate",
@@ -162,18 +173,24 @@ console.log(x);
             },
           ]}
           dataSource={dataSource}
+          
+          status={status}
+         
           pagination={{
             pageSize: 6,
           }}
+          
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
-                setComponentDetail(record.componentDetail);
+                setComponent(record.component);
                 showModal();
               },
             };
           }}
+          
         ></Table>
+        
       </Space>
     );
 
