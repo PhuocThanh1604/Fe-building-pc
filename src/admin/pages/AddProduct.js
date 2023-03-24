@@ -32,6 +32,7 @@ const AddProduct = () => {
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     setImageProduct("https://product.hstatic.net/1000026716/product/"+file.name);
+    console.log("https://product.hstatic.net/1000026716/product/"+file.name)
   };
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
@@ -94,6 +95,7 @@ const AddProduct = () => {
         console.log(response.data);
         // Handle success response here
         console.log(requestBody)
+        alert("Add Product success");
       })
       .catch((error) => {
         console.error(error);
@@ -300,8 +302,8 @@ const onSelectFile = (e) => {
                 <Form.Control type="text" value={productID} onChange={handleProductIDChange} />
               </Form.Group>
              <div>
-                <input type="file" onChange={handleFileUpload} />
-                {imageProduct}
+                <input type="file"  onChange={handleFileUpload} />
+                {/* {imageProduct} */}
                {/* {imageProduct && <div>File name: {imageProduct}</div>} */}
     
               </div>
