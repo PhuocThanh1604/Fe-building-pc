@@ -453,16 +453,16 @@ useEffect(()=>{
               {
                 title: "Price",
                 dataIndex: "price",
-                // render: (record) => {
-                //   return (
-                //     <span>
-                //       {record.toLocaleString("it-IT", {
-                //         style: "currency",
-                //         currency: "VND",
-                //       })}
-                //     </span>
-                //   );
-                // },
+                render: (record) => {
+                  return (
+                    <span>
+                      {record && record.toLocaleString("it-IT", {
+                        style: "currency",
+                        currency: "VND",
+                      })}
+                    </span>
+                  );
+                },
               },
               {
                 title: "Status",
